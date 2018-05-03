@@ -1,26 +1,31 @@
 function preload(){
-	img = loadImage('img/dino.png')
+	img = loadImage('img/dinozao.png')
 }
 function setup(){
 	canvas = createCanvas(innerWidth,innerHeight);
+	ground = height- 100
 	document.querySelector('div#interface').appendChild(canvas.elt);
-	dino = new Dino(150, 200, height/2, img)
+	dino = new Dino(100, 200, ground-100, ground-100, img)
 	dino.show()
 	frameRate(60)
 }
 
 function draw(){
-	background('#2d2d2d');
+	background('e3e3e3');
+	strokeWeight(4)
+	stroke(69)
+	line(0,ground,width,ground)
 	dino.update()
 	dino.show()
 }
 
 class Dino{
 	
-	constructor(size, px, py, img) {
+	constructor(size, px, pyi, pya, img) {
 		this.size = size
 		this.px = px
-		this.py = py
+		this.pyi = pyi
+		this.pya = pya
 		this.vy = 0
 		this.view = img 
 		this.gravity = 1
@@ -28,13 +33,13 @@ class Dino{
 	}
 
 	show(){
-		image(this.view, this.px, this.py, 150, 150)
+		image(this.view, this.px, this.pya, this.size, this.size)
 	}
 
 	update(){
-		if(dino.py+dino.size <= height - 20) {
+		if(dino.pya+dino.size <= ground) {
 			dino.vy += 1
-			dino.py += dino.vy
+			dino.pya += dino.vy
 		}
 	}
 
@@ -44,9 +49,9 @@ class Dino{
 }
 
 function keyPressed(){
-	if(keyCode == 32 || keyCode == UP_ARROW){
+	if(keyCode === 32 || keyCode == UP_ARROW && dino.pya+dino.size >= ground){
 		dino.vy = -20
-		dino.py += dino.vy
+		dino.pya += dino.vy
 	}	
 }
 
