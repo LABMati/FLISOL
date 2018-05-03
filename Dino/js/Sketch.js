@@ -2,15 +2,15 @@ function preload(){
 	img = loadImage('img/dino.png')
 }
 function setup(){
-	canvas = createCanvas(innerHeight*2,innerHeight*.9);
+	canvas = createCanvas(innerWidth,innerHeight);
 	document.querySelector('div#interface').appendChild(canvas.elt);
-	dino = new Dino(150, 40, height/2, img)
+	dino = new Dino(150, 200, height/2, img)
 	dino.show()
 	frameRate(60)
 }
 
 function draw(){
-	background('red');
+	background('#2d2d2d');
 	dino.update()
 	dino.show()
 }
@@ -32,20 +32,9 @@ class Dino{
 	}
 
 	update(){
-		console.log(keyIsPressed)
-		if(keyIsPressed && keyCode == 32 || keyCode == UP_ARROW){
-			this.vy = -20
-			this.py += this.vy
-			console.log(keyIsPressed)
-			
-			console.log(this.vy)
-		}
-		console.log(this.vy)
-		console.log(keyIsPressed)
-				
-		if(this.py+this.size <= height - 20) {
-			this.vy += 5
-			this.py += this.vy
+		if(dino.py+dino.size <= height - 20) {
+			dino.vy += 1
+			dino.py += dino.vy
 		}
 	}
 
@@ -55,5 +44,9 @@ class Dino{
 }
 
 function keyPressed(){
+	if(keyCode == 32 || keyCode == UP_ARROW){
+		dino.vy = -20
+		dino.py += dino.vy
+	}	
 }
 
