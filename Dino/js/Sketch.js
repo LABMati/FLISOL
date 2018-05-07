@@ -1,7 +1,7 @@
 function preload(){
-	img = loadImage('img/dino1.png')
-	img2 = loadImage('img/dino2.png')
-	cactusImg = loadImage('img/tube.png')
+	img = loadImage('img/frame1.png')
+	img2 = loadImage('img/frame2.png')
+	cactusImg = loadImage('img/tubecolor.png')
 	bgImage = loadImage('img/bg2.png')
 }
 
@@ -20,6 +20,7 @@ function setup(){
 	frameRate(60)
 	timerCactus = random(0, 200)
 	setTimeout(createCactus, timerCactus)
+	dificult = 1
 }
 
 var timerCactus = 0;
@@ -41,10 +42,15 @@ function draw(){
 		}
 	}
 	timerCactus = random(1200,1500)
+	dificult += 0.0001
 }
 
 function createCactus(){
 	cactus = new Cactus()
+	if (cactus.width < 200) {
+		cactus2 = new Cactus()
+		cactusArray.push(cactus)
+	}
 	cactusArray.push(cactus)
 	setTimeout(createCactus, timerCactus)
 }
@@ -104,8 +110,8 @@ var escalaCactus = 40
 
 class Cactus{
 	constructor() {
-		this.height = random(50, 100)
-		this.width = this.height * random(.5, 2)
+		this.height = random(70, 120)
+		this.width = this.height * random(1, 2)
 		this.px = canvas.width
 		this.py = ground - this.height
 		this.radiusY = this.height / 2
@@ -119,7 +125,8 @@ class Cactus{
 
 	update(){
 		if(this.px > -200){
-			this.px -= 11;
+			this.px -= 10 * dificult;
+			console.log('velocidade em px:' + (10*dificult))
 		}
 	}
 }
