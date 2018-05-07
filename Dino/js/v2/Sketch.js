@@ -9,6 +9,7 @@ function setup(){
 	canvas = createCanvas(innerWidth,innerHeight);
 	canvas.elt.click()
 	ground = height- 100
+	
 	document.querySelector('div#interface').appendChild(canvas.elt);
 	dino = new Dino(100, 200, ground-100, ground-100/*, img*/)
 	dino.show()

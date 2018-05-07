@@ -12,7 +12,6 @@ var ground = 0;
 function setup(){
 	canvas = createCanvas(innerWidth/2,innerHeight/2);
 	canvas.elt.click()
-	canvas.elt.style.border = "5px solid #494949"
 	ground = height- 100
 	document.querySelector('div#interface').appendChild(canvas.elt);
 	dino = new Dino(100, 100, ground-100, ground-100, img)
@@ -21,6 +20,7 @@ function setup(){
 	timerCactus = random(0, 200)
 	setTimeout(createCactus, timerCactus)
 	dificult = 1
+	textSize(46)
 }
 
 var timerCactus = 0;
@@ -43,6 +43,7 @@ function draw(){
 	}
 	timerCactus = random(1200,1500)
 	dificult += 0.0001
+	text(parseInt(frameCount * 0.2), width / 2,height/8,  200, 200)
 }
 
 function createCactus(){
@@ -67,12 +68,12 @@ class Dino{
 		this.view2 = img2
 		this.gravity = 1
 		this.radius = size/2
-		this.frame = false
+		this.animationFrame = false
 		this.frameCount = 0
 	}
 
 	show(){
-		if (this.frame) {
+		if (this.animationFrame) {
 			image(this.view, this.px, this.pya, this.size, this.size)
 		}else{
 			image(this.view2, this.px, this.pya, this.size, this.size)
@@ -85,7 +86,7 @@ class Dino{
 			dino.pya += dino.vy
 		}
 		if (this.frameCount >=6) {
-			this.frame = !this.frame
+			this.animationFrame = !this.animationFrame
 			this.frameCount = 0
 		}else{
 			this.frameCount++
@@ -94,7 +95,6 @@ class Dino{
 	}
 
 	checkCollide(){
-		console.log('checando colisão')
 		for (var i = 0; i < cactusArray.length; i++) {
 			let collisionX = this.px + this.size > cactusArray[i].px && this.px < cactusArray[i].px + cactusArray[i].width;
 			let collisionY = this.pya + this.size > cactusArray[i].py;
@@ -133,7 +133,6 @@ class Cactus{
 	update(){
 		if(this.px > -200){
 			this.px -= 10 * dificult;
-			console.log('velocidade em px:' + (10*dificult))
 		}
 	}
 }
