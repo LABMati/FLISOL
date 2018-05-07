@@ -71,17 +71,11 @@ class Dino{
 	checkCollide(){
 		//console.log('checando colisão')
 		for (var i = 0; i < cactusArray.length; i++) {
-			let depois=this.px>cactusArray[i].px;
-			let antes=this.px+this.size<cactusArray[i].px+cactusArray[i].width;
-
-			line(this.px,0,this.px,canvas.height)
-			line(this.px+this.size,0,this.px+this.size,canvas.height)
-
-			line(cactusArray[i].px,0,cactusArray[i].px,canvas.height)
-			line(cactusArray[i].px+cactusArray[i].width,0,cactusArray[i].px+cactusArray[i].width,canvas.height)
+			let collisionX=this.px+this.size>cactusArray[i].px&&this.px<cactusArray[i].px+cactusArray[i].width;
+			let collisionY=this.pya+this.size>cactusArray[i].py;
 			
-			if(antes&&depois){
-				console.log('Jorge Werner')
+			if(collisionX&&collisionY){
+				frameRate(0)
 			}
 		}
 	}
