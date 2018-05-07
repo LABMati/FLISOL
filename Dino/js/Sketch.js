@@ -3,6 +3,7 @@ function preload(){
 }
 var cactusArray = []
 var canvas = {}
+var ground = 0;
 
 function setup(){
 	canvas = createCanvas(innerWidth,innerHeight);
@@ -26,9 +27,10 @@ function draw(){
 	fill(49)
 	for (let i = 0; i < cactusArray.length; i++) {
 		cactusArray[i].show()		
-		if(!cactusArray[i].update()){
-			console.log('Entrou')
-			// cactusArray.shift()
+		cactusArray[i].update()
+		if(cactusArray.length > 4){
+			cactusArray.shift()
+			cactusArray.shift()
 		}
 	}
 	timerCactus = random(1500,2500)
@@ -55,7 +57,7 @@ class Dino{
 		this.vy = 0
 		this.view = img 
 		this.gravity = 1
-
+		this.radius = size/2
 	}
 
 	show(){
@@ -67,6 +69,17 @@ class Dino{
 			dino.vy += 1
 			dino.pya += dino.vy
 		}
+		this.checkCollide()
+	}
+
+	checkCollide(){
+		console.log('checando colisão')
+		for (var i = 0; i < cactusArray.length; i++) {
+			let d = dist(this.size/2, this.size/2, cactusArray[i].radiusx, cactusArray[i].radiusx)
+			if (d < this.radius * 2) {
+				// console.log('Perdeu')
+			}
+		}
 	}
 }
 
@@ -77,6 +90,9 @@ class Cactus{
 		this.height = Math.ceil((Math.random() * (4 - 1) + 1)) * escalaCactus
 		this.width = Math.ceil((Math.random() * (3 - 1) + 1)) * (escalaCactus/1.5)
 		this.px = canvas.width-60
+		this.py = ground-this.height
+		this.radiusY = this.height/2
+		this.radiusx = this.width/2
 	}
 
 	show(){
@@ -87,16 +103,16 @@ class Cactus{
 	update(){
 		if(this.px > -90){
 			this.px -= 10;
-		}else{
-			return false	
 		}
 	}
 }
+
+var paused = false
 
 function keyPressed(){
 	if(keyCode === 32 || keyCode == UP_ARROW && dino.pya+dino.size >= ground){
 		dino.vy = -20
 		dino.pya += dino.vy
-	}	
+	}
 }
 
