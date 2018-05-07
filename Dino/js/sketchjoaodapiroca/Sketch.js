@@ -13,6 +13,8 @@ function setup(){
 	dino = new Dino(100, 200, ground-100, ground-100/*, img*/)
 	dino.show()
 	frameRate(60)
+	timerCactus = random(1200, 1500)
+	setTimeout(createCactus, timerCactus)
 }
 
 var timerCactus = 0;
@@ -35,11 +37,6 @@ function draw(){
 	}
 	timerCactus = random(1500,2500)
 }
-
-
-
-setTimeout(createCactus, timerCactus)
-
 
 function createCactus(){
 	cactus = new Cactus()
