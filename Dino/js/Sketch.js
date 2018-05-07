@@ -98,6 +98,13 @@ class Dino{
 			}
 		}
 	}
+	jump(){
+		let a = keyCode === 32 || keyCode == UP_ARROW; 
+		if (a && this.pya === this.pyi + 1) {
+			this.vy = -20
+			this.pya += this.vy
+		}
+	}
 }
 
 var escalaCactus = 40
@@ -127,9 +134,6 @@ class Cactus{
 var paused = false
 
 function keyPressed(){
-	if(keyCode === UP_ARROW && dino.pya+dino.size >= ground){
-		dino.vy = -20
-		dino.pya += dino.vy
-	}
+	dino.jump()
 }
 
